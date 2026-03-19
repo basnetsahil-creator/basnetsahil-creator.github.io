@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sahil — IT Support & Python Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0b0b;
+    --bg2: #131313;
+    --bg3: #1a1a1a;
+    --border: rgba(255,255,255,0.07);
+    --amber: #F0A500;
+    --amber-dim: #a37200;
+    --teal: #00C896;
+    --text: #f0ece4;
+    --muted: #888;
+    --muted2: #555;
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-body: 'Outfit', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 2.5rem;
+    background: rgba(11,11,11,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: 1.1rem;
+    color: var(--amber); letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem; letter-spacing: 0.1em;
+    color: var(--muted); text-decoration: none;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--amber); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 2.5rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,165,0,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem; letter-spacing: 0.2em;
+    color: var(--amber); text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-tag::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--amber);
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 span { color: var(--amber); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 520px; line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s; cursor: pointer; border: none;
+  }
+  .btn-primary {
+    background: var(--amber); color: #0b0b0b; font-weight: 500;
+  }
+  .btn-primary:hover { background: #FFB930; }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--amber); color: var(--amber); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    padding-top: 2rem; border-top: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2rem; font-weight: 800; color: var(--amber);
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    color: var(--muted); text-transform: uppercase; margin-top: 0.2rem;
+  }
+
+  /* SECTION BASE */
+  section { padding: 6rem 2.5rem; }
+  .section-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    color: var(--amber); text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800; line-height: 1;
+    margin-bottom: 3rem;
+  }
+  .max-w { max-width: 1100px; margin: 0 auto; }
+
+  /* ABOUT */
+  .about { background: var(--bg2); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start;
+  }
+  .about-text p {
+    font-size: 1rem; color: var(--muted);
+    line-height: 1.85; margin-bottom: 1.2rem;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+  .about-info { display: flex; flex-direction: column; gap: 1rem; }
+  .info-row {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--bg3); border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .info-icon {
+    font-size: 1rem; margin-top: 0.1rem;
+    color: var(--amber); flex-shrink: 0;
+  }
+  .info-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    color: var(--muted); text-transform: uppercase;
+  }
+  .info-val { font-size: 0.9rem; color: var(--text); margin-top: 0.2rem; }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .skill-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: var(--amber-dim); transform: translateY(-2px); }
+  .skill-cat {
+    font-family: var(--font-mono);
+    font-size: 0.65rem; letter-spacing: 0.15em;
+    color: var(--amber); text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .skill-card h3 {
+    font-family: var(--font-display);
+    font-size: 1rem; font-weight: 700;
+    margin-bottom: 0.6rem; color: var(--text);
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem; letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    background: rgba(240,165,0,0.1);
+    color: #c8891a;
+    border-radius: 3px;
+  }
+
+  /* EXPERIENCE */
+  .exp { background: var(--bg2); }
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item {
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 2rem; padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .tl-date {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; letter-spacing: 0.1em;
+    color: var(--muted); text-transform: uppercase;
+    padding-top: 0.2rem;
+  }
+  .tl-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--amber); margin-bottom: 0.75rem;
+  }
+  .tl-company {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; color: var(--amber);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .tl-role {
+    font-family: var(--font-display);
+    font-size: 1.2rem; font-weight: 700;
+    margin-bottom: 0.5rem; color: var(--text);
+  }
+  .tl-desc {
+    font-size: 0.9rem; color: var(--muted);
+    line-height: 1.75; max-width: 600px;
+  }
+  .tl-loc {
+    font-family: var(--font-mono);
+    font-size: 0.65rem; color: var(--muted2);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-top: 0.5rem;
+  }
+
+  /* CERTIFICATIONS */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .cert-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 1.25rem 1.5rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+    transition: border-color 0.2s;
+  }
+  .cert-card:hover { border-color: rgba(0,200,150,0.3); }
+  .cert-icon {
+    width: 36px; height: 36px; border-radius: 6px;
+    background: rgba(0,200,150,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+    color: var(--teal);
+  }
+  .cert-name {
+    font-size: 0.9rem; font-weight: 500; color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+  .cert-issuer {
+    font-family: var(--font-mono);
+    font-size: 0.65rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .cert-year {
+    margin-left: auto; font-family: var(--font-mono);
+    font-size: 0.65rem; color: var(--amber);
+    flex-shrink: 0; padding-left: 0.5rem;
+  }
+
+  /* CONTACT */
+  .contact { text-align: center; }
+  .contact-email {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 800; color: var(--amber);
+    text-decoration: none;
+    border-bottom: 2px solid var(--amber-dim);
+    padding-bottom: 0.2rem;
+    transition: color 0.2s;
+    display: inline-block; margin: 2rem 0;
+  }
+  .contact-links {
+    display: flex; justify-content: center; gap: 1.5rem;
+    flex-wrap: wrap; margin-top: 1.5rem;
+  }
+  .contact-link {
+    font-family: var(--font-mono);
+    font-size: 0.72rem; letter-spacing: 0.12em;
+    color: var(--muted); text-decoration: none;
+    text-transform: uppercase; padding: 0.6rem 1.2rem;
+    border: 1px solid var(--border); border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { color: var(--amber); border-color: var(--amber-dim); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 2.5rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  footer p {
+    font-family: var(--font-mono);
+    font-size: 0.65rem; color: var(--muted2);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* REVEAL ANIMATION */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .tl-date { padding-top: 0; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SAHIL</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="max-w">
+    <div class="hero-tag">Available for Remote Work</div>
+    <h1>IT Support<br><span>&amp; Python</span><br>Developer</h1>
+    <p class="hero-sub">
+      Bridging technical support and software development — helping teams resolve issues, build systems, and deliver results from anywhere in the world.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-primary">Get in Touch</a>
+      <a href="#experience" class="btn btn-outline">View Experience</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Countries Worked</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="max-w">
+    <div class="section-tag">About Me</div>
+    <div class="section-title">Who I Am</div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I'm a <strong>IT Support Specialist and Python Developer</strong> based in Bhaktapur, Nepal, with a background spanning customer service, office management, and software development.
+        </p>
+        <p>
+          I've worked across Nepal and internationally in Abu Dhabi, gaining hands-on experience in <strong>IT troubleshooting, customer support, travel logistics,</strong> and <strong>technical operations</strong>. I thrive in fast-paced environments and bring structured problem-solving to every challenge.
+        </p>
+        <p>
+          Currently seeking <strong>remote opportunities</strong> in customer support, virtual assistance, data entry, and IT roles where I can contribute my skills to a global team.
+        </p>
+      </div>
+      <div class="about-info reveal">
+        <div class="info-row">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Location</div>
+            <div class="info-val">Lokanthali 01, Bhaktapur, Nepal</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🎓</div>
+          <div>
+            <div class="info-label">Education</div>
+            <div class="info-val">Softwarica College (Coventry University)</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">💼</div>
+          <div>
+            <div class="info-label">Open To</div>
+            <div class="info-val">Remote — Customer Support, VA, Data Entry, IT</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🌐</div>
+          <div>
+            <div class="info-label">Languages</div>
+            <div class="info-val">English (Professional) · Nepali (Native)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="max-w">
+    <div class="section-tag">Capabilities</div>
+    <div class="section-title">Skills &amp; Tools</div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-cat">Technical</div>
+        <h3>IT Support</h3>
+        <div class="skill-tags">
+          <span class="tag">Hardware</span>
+          <span class="tag">Networking</span>
+          <span class="tag">Troubleshooting</span>
+          <span class="tag">Windows</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Development</div>
+        <h3>Python</h3>
+        <div class="skill-tags">
+          <span class="tag">Python 3</span>
+          <span class="tag">Django</span>
+          <span class="tag">Scripting</span>
+          <span class="tag">Automation</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Database</div>
+        <h3>Data &amp; DB</h3>
+        <div class="skill-tags">
+          <span class="tag">MS SQL Server</span>
+          <span class="tag">Data Entry</span>
+          <span class="tag">Excel/MOS</span>
+          <span class="tag">Odoo</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Web</div>
+        <h3>Frontend</h3>
+        <div class="skill-tags">
+          <span class="tag">HTML/CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">React</span>
+          <span class="tag">Full Stack</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Business</div>
+        <h3>Customer Service</h3>
+        <div class="skill-tags">
+          <span class="tag">Chat Support</span>
+          <span class="tag">CRM</span>
+          <span class="tag">Ticketing</span>
+          <span class="tag">iGaming</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Office</div>
+        <h3>Administration</h3>
+        <div class="skill-tags">
+          <span class="tag">Virtual Assistant</span>
+          <span class="tag">PR Management</span>
+          <span class="tag">GenAI Tools</span>
+          <span class="tag">Scheduling</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="exp" id="experience">
+  <div class="max-w">
+    <div class="section-tag">Work History</div>
+    <div class="section-title">Experience</div>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div>
+          <div class="tl-date">2023 — Present</div>
+        </div>
+        <div>
+          <div class="tl-dot"></div>
+          <div class="tl-company">New Innovation Pvt Ltd</div>
+          <div class="tl-role">IT Support &amp; Customer Service</div>
+          <div class="tl-desc">
+            Provided end-to-end IT support and customer service, troubleshooting hardware, software, and network issues. Delivered responsive technical assistance, managed support tickets, and maintained systems for optimal performance.
+          </div>
+          <div class="tl-loc">📍 Nepal</div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div>
+          <div class="tl-date">2021 — 2023</div>
+        </div>
+        <div>
+          <div class="tl-dot"></div>
+          <div class="tl-company">Himalaya World Travels LLC</div>
+          <div class="tl-role">Travel Support Specialist</div>
+          <div class="tl-desc">
+            Managed travel bookings, handled customer queries, and coordinated logistics for international travelers. Delivered bilingual support (English/Nepali) and maintained high customer satisfaction in a fast-paced environment.
+          </div>
+          <div class="tl-loc">📍 Abu Dhabi, UAE</div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div>
+          <div class="tl-date">2019 — 2021</div>
+        </div>
+        <div>
+          <div class="tl-dot"></div>
+          <div class="tl-company">S.N HR Solutions</div>
+          <div class="tl-role">Office Manager</div>
+          <div class="tl-desc">
+            Oversaw day-to-day office operations, managed HR documentation, handled scheduling, and ensured efficient administrative workflows. Served as the primary point of contact for internal and external communications.
+          </div>
+          <div class="tl-loc">📍 Nepal</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="max-w">
+    <div class="section-tag">Credentials</div>
+    <div class="section-title">Certifications</div>
+    <div class="cert-grid">
+      <div class="cert-card reveal">
+        <div class="cert-icon">✓</div>
+        <div>
+          <div class="cert-name">Microsoft Office Specialist (MOS)</div>
+          <div class="cert-issuer">Itronix Solutions</div>
+        </div>
+        <div class="cert-year">2026</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">✓</div>
+        <div>
+          <div class="cert-name">Odoo Functional Certification</div>
+          <div class="cert-issuer">Odoo</div>
+        </div>
+        <div class="cert-year">2026</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">✓</div>
+        <div>
+          <div class="cert-name">Data Entry Operator</div>
+          <div class="cert-issuer">Itronix Solutions</div>
+        </div>
+        <div class="cert-year">2026</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">✓</div>
+        <div>
+          <div class="cert-name">GenAI for Virtual Assistants</div>
+          <div class="cert-issuer">Udemy</div>
+        </div>
+        <div class="cert-year">2026</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">✓</div>
+        <div>
+          <div class="cert-name">MS SQL Server</div>
+          <div class="cert-issuer">Udemy</div>
+        </div>
+        <div class="cert-year">2026</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">✓</div>
+        <div>
+          <div class="cert-name">Secure Python &amp; Django</div>
+          <div class="cert-issuer">Udemy</div>
+        </div>
+        <div class="cert-year">2026</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">✓</div>
+        <div>
+          <div class="cert-name">PR Management</div>
+          <div class="cert-issuer">Udemy</div>
+        </div>
+        <div class="cert-year">2026</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">✓</div>
+        <div>
+          <div class="cert-name">Python Programming</div>
+          <div class="cert-issuer">Itronix Solutions</div>
+        </div>
+        <div class="cert-year">2023</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">✓</div>
+        <div>
+          <div class="cert-name">Hardware &amp; Networking</div>
+          <div class="cert-issuer">INFO-EXCELLENT</div>
+        </div>
+        <div class="cert-year">2012</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="max-w">
+    <div class="section-tag" style="justify-content:center">Contact</div>
+    <div class="section-title">Let's Work Together</div>
+    <p style="color:var(--muted); max-width:480px; margin:0 auto; font-size:1rem; line-height:1.75;">
+      Open to remote opportunities in customer support, virtual assistance, IT, and data roles. Let's connect.
+    </p>
+    <a href="mailto:sahilbasnet95@yahoo.com" class="contact-email">sahilbasnet95&#64;yahoo.com</a>
+    <div class="contact-links">
+      <a href="https://www.upwork.com/freelancers/~013e4e5fee40b93604" target="_blank" class="contact-link">Upwork Profile</a>
+      <a href="https://www.linkedin.com/in/sahil-basnet-6332a13b1/" target="_blank" class="contact-link">LinkedIn</a>
+      <a href="https://github.com/basnetsahil-creator" target="_blank" class="contact-link">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Sahil · Bhaktapur, Nepal</p>
+  <p>Built with HTML · Deployed on GitHub Pages</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      s
