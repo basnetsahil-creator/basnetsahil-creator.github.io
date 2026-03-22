@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sahil — IT Support & Python Developer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none;
         }
 
         :root {
@@ -21,14 +23,79 @@
             --accent: #00DC82;
             --accent-hover: #00c473;
             --border: #2a2a2a;
+            --purple: #8B5CF6;
+            --blue: #3B82F6;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor.hover {
+            transform: scale(2);
+            background: rgba(0, 220, 130, 0.2);
+        }
+
+        /* Particle Background */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+            50% { transform: translateY(-100px) translateX(50px); opacity: 0.6; }
         }
 
         /* Scrollbar */
@@ -43,6 +110,30 @@
             border-radius: 5px;
         }
 
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.3rem;
+            z-index: 1001;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+            border-color: var(--accent);
+        }
+
         /* Navigation */
         header {
             position: fixed;
@@ -53,6 +144,10 @@
             z-index: 1000;
             padding: 20px 0;
             border-bottom: 1px solid var(--border);
+        }
+
+        [data-theme="light"] header {
+            background: rgba(255, 255, 255, 0.95);
         }
 
         nav {
@@ -85,6 +180,22 @@
             font-weight: 500;
             transition: all 0.3s;
             font-size: 0.95rem;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .nav-links a:hover {
@@ -100,6 +211,10 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .nav-links .btn-primary::after {
+            display: none;
         }
 
         .nav-links .btn-primary:hover {
@@ -133,6 +248,17 @@
             color: var(--accent);
         }
 
+        .typing-text {
+            color: var(--purple);
+            border-right: 3px solid var(--accent);
+            padding-right: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
         .hero-subtitle {
             font-size: 1.25rem;
             color: var(--text-secondary);
@@ -156,6 +282,23 @@
             gap: 10px;
             transition: all 0.3s;
             font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primary {
@@ -190,6 +333,20 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        .stat:nth-child(1) { animation-delay: 0.2s; }
+        .stat:nth-child(2) { animation-delay: 0.4s; }
+        .stat:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .stat-icon {
@@ -203,6 +360,13 @@
             font-size: 1.3rem;
             color: var(--accent);
             border: 2px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .stat:hover .stat-icon {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: rotate(360deg);
         }
 
         .stat-info h3 {
@@ -223,7 +387,6 @@
             align-items: center;
         }
 
-        /* Animated Developer Illustration */
         .developer-illustration {
             width: 100%;
             max-width: 500px;
@@ -236,46 +399,13 @@
             filter: drop-shadow(0 20px 40px rgba(0, 220, 130, 0.2));
         }
 
-        /* Animations */
-        @keyframes blink {
-            0%, 49%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        @keyframes glow {
-            0%, 100% { filter: drop-shadow(0 0 5px rgba(0, 220, 130, 0.5)); }
-            50% { filter: drop-shadow(0 0 20px rgba(0, 220, 130, 0.8)); }
+        .floating {
+            animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
-        }
-
-        @keyframes codeType {
-            0% { stroke-dashoffset: 100; }
-            100% { stroke-dashoffset: 0; }
-        }
-
-        @keyframes screenGlow {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-        }
-
-        .screen-glow {
-            animation: screenGlow 3s ease-in-out infinite;
-        }
-
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .cursor {
-            animation: blink 1s step-end infinite;
-        }
-
-        .glow-effect {
-            animation: glow 2s ease-in-out infinite;
         }
 
         /* Floating Social Icons */
@@ -320,6 +450,7 @@
 
         .section-header {
             margin-bottom: 60px;
+            text-align: center;
         }
 
         .section-tag {
@@ -329,12 +460,25 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 10px;
+            display: inline-block;
         }
 
         .section-title {
             font-size: 3rem;
             font-weight: 800;
             line-height: 1.2;
+        }
+
+        /* Scroll Animation */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animate.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* About Section */
@@ -381,6 +525,16 @@
             align-items: center;
             gap: 12px;
             color: var(--text-primary);
+            padding: 15px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .feature:hover {
+            border-color: var(--accent);
+            transform: translateX(10px);
         }
 
         .feature i {
@@ -465,13 +619,14 @@
             border: 2px solid var(--border);
             border-radius: 20px;
             padding: 35px;
-            transition: all 0.3s;
+            transition: all 0.4s;
+            transform-style: preserve-3d;
         }
 
         .skill-card:hover {
             border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 220, 130, 0.1);
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 220, 130, 0.2);
         }
 
         .skill-card h3 {
@@ -506,6 +661,146 @@
             background: var(--accent);
             color: var(--bg-primary);
             border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        /* Skills Progress Bars */
+        .skills-progress {
+            margin-top: 60px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid var(--border);
+        }
+
+        .progress-item {
+            margin-bottom: 25px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--bg-primary);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Projects Section */
+        #projects {
+            background: var(--bg-secondary);
+            max-width: 100%;
+            padding: 100px 40px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 50px rgba(0, 220, 130, 0.2);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--bg-primary);
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .project-content p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .project-tech span {
+            background: var(--bg-primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            border: 1px solid var(--border);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .project-links a:hover {
+            color: var(--accent);
         }
 
         /* Experience Section */
@@ -524,6 +819,17 @@
             display: flex;
             flex-direction: column;
             gap: 30px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
         }
 
         .job-card {
@@ -532,29 +838,26 @@
             border-radius: 20px;
             padding: 40px;
             position: relative;
-            transition: all 0.3s;
-        }
-
-        .job-card:hover {
-            border-color: var(--accent);
-            transform: translateX(10px);
+            transition: all 0.4s;
+            margin-left: 60px;
         }
 
         .job-card::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 40px;
-            width: 4px;
-            height: calc(100% - 80px);
+            left: -40px;
+            top: 50px;
+            width: 20px;
+            height: 20px;
             background: var(--accent);
-            border-radius: 0 4px 4px 0;
-            opacity: 0;
-            transition: opacity 0.3s;
+            border-radius: 50%;
+            border: 4px solid var(--bg-primary);
         }
 
-        .job-card:hover::before {
-            opacity: 1;
+        .job-card:hover {
+            border-color: var(--accent);
+            transform: translateX(15px);
+            box-shadow: 0 10px 40px rgba(0, 220, 130, 0.15);
         }
 
         .job-header {
@@ -620,11 +923,30 @@
             align-items: center;
             gap: 20px;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            transform: scaleY(0);
+            transition: transform 0.3s;
+        }
+
+        .cert-card:hover::before {
+            transform: scaleY(1);
         }
 
         .cert-card:hover {
             border-color: var(--accent);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 220, 130, 0.15);
         }
 
         .cert-icon {
@@ -689,6 +1011,51 @@
             margin-bottom: 40px;
         }
 
+        .contact-form {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 220, 130, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
         .contact-buttons {
             display: flex;
             gap: 20px;
@@ -748,6 +1115,37 @@
             color: var(--accent);
         }
 
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 220, 130, 0.4);
+        }
+
         /* Responsive */
         @media (max-width: 968px) {
             .hero {
@@ -783,6 +1181,12 @@
                 display: none;
             }
 
+            .theme-toggle {
+                top: auto;
+                bottom: 20px;
+                left: 20px;
+            }
+
             nav {
                 padding: 0 20px;
             }
@@ -801,6 +1205,15 @@
 
             .job-card {
                 padding: 30px;
+                margin-left: 40px;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .job-card::before {
+                left: -30px;
             }
         }
 
@@ -826,13 +1239,88 @@
                 grid-template-columns: 1fr;
             }
 
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
             .developer-illustration {
                 max-width: 280px;
             }
+
+            .cursor, .cursor-dot {
+                display: none;
+            }
+
+            * {
+                cursor: auto;
+            }
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Loading Portfolio...</div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Particle Background -->
+    <div id="particles"></div>
 
     <!-- Navigation -->
     <header>
@@ -841,6 +1329,7 @@
             <div class="nav-links">
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
                 <a href="#experience">Experience</a>
                 <a href="#certifications">Certs</a>
                 <a href="#contact" class="btn-primary">
@@ -869,7 +1358,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>IT Support & <span>Python</span> Developer</h1>
+            <h1>IT Support & <span class="typing-text"></span></h1>
             <p class="hero-subtitle">
                 Bridging technical support and software development — helping teams resolve issues, build systems, and deliver results from anywhere in the world.
             </p>
@@ -896,7 +1385,7 @@
                         <i class="fas fa-certificate"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>20+</h3>
+                        <h3>23+</h3>
                         <p>Certifications</p>
                     </div>
                 </div>
@@ -914,96 +1403,43 @@
         <div class="hero-image">
             <div class="developer-illustration floating">
                 <svg class="illustration-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Background Glow -->
                     <circle cx="250" cy="250" r="200" fill="rgba(0, 220, 130, 0.1)" class="screen-glow"/>
-                    
-                    <!-- Desk -->
                     <rect x="100" y="380" width="300" height="20" rx="5" fill="#1a1a1a" stroke="#00DC82" stroke-width="2"/>
                     <rect x="130" y="400" width="15" height="60" fill="#2a2a2a"/>
                     <rect x="355" y="400" width="15" height="60" fill="#2a2a2a"/>
-                    
-                    <!-- Computer Monitor -->
                     <rect x="180" y="200" width="140" height="100" rx="5" fill="#1a1a1a" stroke="#00DC82" stroke-width="2" class="glow-effect"/>
                     <rect x="190" y="210" width="120" height="80" rx="3" fill="#0a0a0a"/>
-                    
-                    <!-- Screen Content - Code Lines -->
                     <g fill="#00DC82" opacity="0.8">
-                        <rect x="200" y="220" width="60" height="4" rx="2">
-                            <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2s" repeatCount="indefinite"/>
-                        </rect>
-                        <rect x="200" y="230" width="80" height="4" rx="2">
-                            <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.5s" repeatCount="indefinite"/>
-                        </rect>
-                        <rect x="200" y="240" width="70" height="4" rx="2">
-                            <animate attributeName="opacity" values="0.8;0.4;0.8" dur="3s" repeatCount="indefinite"/>
-                        </rect>
-                        <rect x="200" y="250" width="50" height="4" rx="2">
-                            <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.2s" repeatCount="indefinite"/>
-                        </rect>
-                        <rect x="200" y="260" width="90" height="4" rx="2">
-                            <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.8s" repeatCount="indefinite"/>
-                        </rect>
-                        <!-- Blinking Cursor -->
+                        <rect x="200" y="220" width="60" height="4" rx="2"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="2s" repeatCount="indefinite"/></rect>
+                        <rect x="200" y="230" width="80" height="4" rx="2"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.5s" repeatCount="indefinite"/></rect>
+                        <rect x="200" y="240" width="70" height="4" rx="2"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="3s" repeatCount="indefinite"/></rect>
+                        <rect x="200" y="250" width="50" height="4" rx="2"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.2s" repeatCount="indefinite"/></rect>
+                        <rect x="200" y="260" width="90" height="4" rx="2"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.8s" repeatCount="indefinite"/></rect>
                         <rect x="295" y="260" width="3" height="4" class="cursor" fill="#00DC82"/>
                     </g>
-                    
-                    <!-- Monitor Stand -->
                     <rect x="235" y="300" width="30" height="15" fill="#2a2a2a"/>
                     <rect x="210" y="315" width="80" height="8" rx="3" fill="#1a1a1a"/>
-                    
-                    <!-- Person - Body -->
                     <ellipse cx="250" cy="340" rx="50" ry="45" fill="#2a2a2a"/>
-                    
-                    <!-- Person - Head -->
                     <circle cx="250" cy="260" r="35" fill="#2a2a2a"/>
-                    
-                    <!-- Glasses -->
                     <circle cx="240" cy="255" r="8" fill="none" stroke="#00DC82" stroke-width="2"/>
                     <circle cx="260" cy="255" r="8" fill="none" stroke="#00DC82" stroke-width="2"/>
                     <line x1="248" y1="255" x2="252" y2="255" stroke="#00DC82" stroke-width="2"/>
-                    
-                    <!-- Laptop/Keyboard on desk -->
                     <rect x="200" y="360" width="100" height="15" rx="3" fill="#1a1a1a" stroke="#00DC82" stroke-width="1.5"/>
-                    
-                    <!-- Hands on keyboard -->
                     <ellipse cx="220" cy="365" rx="12" ry="8" fill="#2a2a2a"/>
                     <ellipse cx="280" cy="365" rx="12" ry="8" fill="#2a2a2a"/>
-                    
-                    <!-- Coffee Cup -->
                     <rect x="360" y="350" width="25" height="30" rx="3" fill="#1a1a1a" stroke="#00DC82" stroke-width="1.5"/>
                     <ellipse cx="372" cy="350" rx="12" ry="4" fill="#0a0a0a"/>
                     <path d="M 385 355 Q 395 355 395 365 Q 395 375 385 375" fill="none" stroke="#00DC82" stroke-width="2"/>
-                    <!-- Steam from coffee -->
-                    <path d="M 372 345 Q 375 340 372 335" fill="none" stroke="#00DC82" stroke-width="1.5" opacity="0.6">
-                        <animate attributeName="opacity" values="0.6;0.2;0.6" dur="2s" repeatCount="indefinite"/>
-                    </path>
-                    <path d="M 375 340 Q 378 335 375 330" fill="none" stroke="#00DC82" stroke-width="1.5" opacity="0.4">
-                        <animate attributeName="opacity" values="0.4;0.1;0.4" dur="2.5s" repeatCount="indefinite"/>
-                    </path>
-                    
-                    <!-- Code brackets floating -->
+                    <path d="M 372 345 Q 375 340 372 335" fill="none" stroke="#00DC82" stroke-width="1.5" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="2s" repeatCount="indefinite"/></path>
                     <text x="150" y="180" fill="#00DC82" font-family="monospace" font-size="30" opacity="0.6" class="glow-effect">{ }</text>
                     <text x="340" y="160" fill="#00DC82" font-family="monospace" font-size="25" opacity="0.5">&lt; / &gt;</text>
-                    
-                    <!-- Binary code floating -->
-                    <text x="120" y="300" fill="#00DC82" font-family="monospace" font-size="12" opacity="0.4">
-                        <tspan x="120" dy="0">01001</tspan>
-                        <tspan x="120" dy="15">11001</tspan>
-                        <tspan x="120" dy="15">00110</tspan>
-                    </text>
-                    
-                    <text x="380" y="280" fill="#00DC82" font-family="monospace" font-size="12" opacity="0.4">
-                        <tspan x="380" dy="0">10101</tspan>
-                        <tspan x="380" dy="15">01100</tspan>
-                        <tspan x="380" dy="15">11010</tspan>
-                    </text>
                 </svg>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about">
+    <section id="about" class="scroll-animate">
         <div class="about-container">
             <div class="about-content">
                 <div class="section-tag">About Me</div>
@@ -1081,7 +1517,7 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills">
+    <section id="skills" class="scroll-animate">
         <div class="section-header">
             <div class="section-tag">Capabilities</div>
             <h2 class="section-title">Skills & Tools</h2>
@@ -1133,17 +1569,135 @@
                 </div>
             </div>
         </div>
+
+        <!-- Skills Progress Bars -->
+        <div class="skills-progress">
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>Python</span>
+                    <span>85%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-width="85%"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>Django</span>
+                    <span>75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-width="75%"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>IT Support</span>
+                    <span>90%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-width="90%"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>Customer Service</span>
+                    <span>95%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-width="95%"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>AI/ML Tools</span>
+                    <span>80%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-width="80%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="scroll-animate">
+        <div class="section-header">
+            <div class="section-tag">Portfolio</div>
+            <h2 class="section-title">Featured Projects</h2>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="project-content">
+                    <h3>AI Automation Bot</h3>
+                    <p>Automated customer support responses using Claude API and Python, reducing response time by 60%.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Claude API</span>
+                        <span>Automation</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/basnetsahil-creator" target="_blank">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                        <a href="#">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="project-content">
+                    <h3>Data Management System</h3>
+                    <p>Full-stack data entry and management system built with Django and MS SQL Server for enterprise clients.</p>
+                    <div class="project-tech">
+                        <span>Django</span>
+                        <span>SQL Server</span>
+                        <span>HTML/CSS</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/basnetsahil-creator" target="_blank">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="project-content">
+                    <h3>Support Ticket System</h3>
+                    <p>Custom ticketing system for IT support teams with automated routing and priority management.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Odoo</span>
+                        <span>CRM</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/basnetsahil-creator" target="_blank">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience">
+    <section id="experience" class="scroll-animate">
         <div class="experience-container">
             <div class="section-header">
                 <div class="section-tag">Work History</div>
                 <h2 class="section-title">Experience</h2>
             </div>
             <div class="timeline">
-                <!-- Job 1: Current - Remote Freelance -->
                 <div class="job-card">
                     <div class="job-header">
                         <h3 class="job-title">Remote Customer Support Rep & Virtual Assistant</h3>
@@ -1160,7 +1714,6 @@
                     </p>
                 </div>
 
-                <!-- Job 2: Current - S.N HR -->
                 <div class="job-card">
                     <div class="job-header">
                         <h3 class="job-title">Solutions Manager</h3>
@@ -1177,7 +1730,6 @@
                     </p>
                 </div>
 
-                <!-- Job 3: New Innovation Pvt Ltd -->
                 <div class="job-card">
                     <div class="job-header">
                         <h3 class="job-title">IT Support & Customer Service</h3>
@@ -1194,7 +1746,6 @@
                     </p>
                 </div>
 
-                <!-- Job 4: Himalaya World Travels -->
                 <div class="job-card">
                     <div class="job-header">
                         <h3 class="job-title">Travel Support Specialist</h3>
@@ -1215,7 +1766,7 @@
     </section>
 
     <!-- Certifications Section -->
-    <section id="certifications">
+    <section id="certifications" class="scroll-animate">
         <div class="section-header">
             <div class="section-tag">Credentials</div>
             <h2 class="section-title">Certifications</h2>
@@ -1227,108 +1778,84 @@
         </h3>
         <div class="cert-grid">
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Claude with the Anthropic API</h4>
                     <p>Anthropic</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Claude 101</h4>
                     <p>Anthropic</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Claude Code in Action</h4>
                     <p>Anthropic</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Introduction to Claude Cowork</h4>
                     <p>Anthropic</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Claude with Amazon Bedrock</h4>
                     <p>Anthropic</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Claude with Google Vertex AI</h4>
                     <p>Anthropic</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Introduction to Model Context Protocol</h4>
                     <p>Anthropic / Skilljar</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Model Context Protocol: Advanced Topics</h4>
                     <p>Anthropic</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Introduction to Agent Skills</h4>
                     <p>Anthropic</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>AI Fluency for Educators</h4>
                     <p>Anthropic / UCC / Ringling College</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>AI Fluency: Framework & Foundations</h4>
                     <p>Anthropic / UCC</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>AI Fluency for Students</h4>
                     <p>Anthropic / UCC / Ringling College</p>
@@ -1342,99 +1869,77 @@
         </h3>
         <div class="cert-grid">
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Microsoft Office Specialist (MOS)</h4>
                     <p>Itronix Solutions</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Odoo Functional Certification</h4>
                     <p>Odoo</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Data Entry Operator</h4>
                     <p>Itronix Solutions</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>GenAI for Virtual Assistants</h4>
                     <p>Udemy</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>MS SQL Server</h4>
                     <p>Udemy</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Secure Python & Django</h4>
                     <p>Udemy</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>PR Management</h4>
                     <p>Udemy</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Python Programming</h4>
                     <p>Itronix Solutions (2023)</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Hardware & Networking</h4>
                     <p>INFO-EXCELLENT (2012)</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>IT Support Professional Certification</h4>
                     <p>Itronix Solutions</p>
                 </div>
             </div>
             <div class="cert-card">
-                <div class="cert-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                 <div class="cert-info">
                     <h4>Web Design & Promotion</h4>
                     <p>Ved International (2011)</p>
@@ -1444,13 +1949,30 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact">
+    <section id="contact" class="scroll-animate">
         <div class="contact-container">
             <div class="section-tag">Get In Touch</div>
             <h2>Let's Work Together</h2>
-            <p>
-                Open to remote opportunities in customer support, virtual assistance, IT, and data roles. Let's connect and create something amazing.
-            </p>
+            <p>Open to remote opportunities in customer support, virtual assistance, IT, and data roles. Let's connect and create something amazing.</p>
+            
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" required placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required placeholder="Tell me about your project..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; border: none; font-size: 1.1rem;">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+
             <div class="contact-buttons">
                 <a href="mailto:sahilbasnet95@yahoo.com" class="contact-btn contact-btn-primary">
                     <i class="fas fa-envelope"></i>
@@ -1477,5 +1999,162 @@
         <p>© 2025 Sahil · Kathmandu, Nepal · Built with <span>♥</span> · Deployed on GitHub Pages</p>
     </footer>
 
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loader').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button, .skill-card, .project-card, .cert-card, .job-card').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            themeIcon.className = newTheme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+
+        // Particle Background
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Typing Animation
+        const titles = ['Python Developer', 'IT Support Specialist', 'Virtual Assistant', 'AI Enthusiast'];
+        let titleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.querySelector('.typing-text');
+
+        function type() {
+            const currentTitle = titles[titleIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentTitle.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentTitle.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentTitle.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                titleIndex = (titleIndex + 1) % titles.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        type();
+
+        // Scroll Animations
+        const scrollElements = document.querySelectorAll('.scroll-animate');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Animate progress bars
+                    const progressBars = entry.target.querySelectorAll('.progress-fill');
+                    progressBars.forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-width');
+                    });
+                }
+            });
+        }, { threshold: 0.1 });
+
+        scrollElements.forEach(el => observer.observe(el));
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Contact Form
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Create mailto link
+            const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+            window.location.href = `mailto:sahilbasnet95@yahoo.com?subject=${subject}&body=${body}`;
+            
+            // Show success message
+            alert('Thank you! Opening your email client to send the message...');
+            e.target.reset();
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // GitHub Stats (Optional - Add your username)
+        async function fetchGitHubStats() {
+            try {
+                const response = await fetch('https://api.github.com/users/basnetsahil-creator');
+                const data = await response.json();
+                console.log('GitHub Stats:', data);
+            } catch (error) {
+                console.log('GitHub API:', error);
+            }
+        }
+
+        fetchGitHubStats();
+    </script>
 </body>
 </html>
