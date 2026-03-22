@@ -23,7 +23,6 @@
             --accent-hover: #00c473;
             --border: #2a2a2a;
             --purple: #8B5CF6;
-            --blue: #3B82F6;
         }
 
         [data-theme="light"] {
@@ -43,43 +42,18 @@
             overflow-x: hidden;
         }
 
-        /* Simple View - Remove animations and effects */
-        body.simple-view {
-            cursor: auto !important;
-        }
-
         body.simple-view .cursor,
         body.simple-view .cursor-dot,
         body.simple-view #particles,
-        body.simple-view .loader,
-        body.simple-view .floating,
-        body.simple-view .glow-effect,
-        body.simple-view .scroll-animate {
+        body.simple-view .loader {
             display: none !important;
         }
 
         body.simple-view * {
             animation: none !important;
             transition: none !important;
-            transform: none !important;
         }
 
-        body.simple-view .skill-card,
-        body.simple-view .project-card,
-        body.simple-view .cert-card,
-        body.simple-view .job-card {
-            box-shadow: none !important;
-            border: 1px solid var(--border) !important;
-        }
-
-        body.simple-view .skill-card:hover,
-        body.simple-view .project-card:hover,
-        body.simple-view .cert-card:hover,
-        body.simple-view .job-card:hover {
-            transform: none !important;
-        }
-
-        /* Custom Cursor */
         .cursor {
             width: 20px;
             height: 20px;
@@ -88,8 +62,6 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: all 0.1s ease;
-            mix-blend-mode: difference;
         }
 
         .cursor-dot {
@@ -102,12 +74,6 @@
             z-index: 9999;
         }
 
-        .cursor.hover {
-            transform: scale(2);
-            background: rgba(0, 220, 130, 0.2);
-        }
-
-        /* Particle Background */
         #particles {
             position: fixed;
             top: 0;
@@ -129,23 +95,10 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
-            50% { transform: translateY(-100px) translateX(50px); opacity: 0.6; }
+            0%, 100% { transform: translateY(0); opacity: 0.3; }
+            50% { transform: translateY(-100px); opacity: 0.6; }
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 5px;
-        }
-
-        /* Toggle Buttons Container */
         .toggles-container {
             position: fixed;
             top: 20px;
@@ -181,7 +134,6 @@
             color: var(--bg-primary);
         }
 
-        /* Navigation */
         header {
             position: fixed;
             top: 0;
@@ -212,7 +164,6 @@
             background: linear-gradient(135deg, var(--accent), #00ff88);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .nav-links {
@@ -226,23 +177,6 @@
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s;
-            font-size: 0.95rem;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
         }
 
         .nav-links a:hover {
@@ -255,13 +189,6 @@
             padding: 12px 28px;
             border-radius: 50px;
             font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-links .btn-primary::after {
-            display: none;
         }
 
         .nav-links .btn-primary:hover {
@@ -269,26 +196,21 @@
             transform: translateY(-2px);
         }
 
-        /* Hero Section */
         .hero {
             margin-top: 80px;
             padding: 100px 40px;
             max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 80px auto 0;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
-            min-height: calc(100vh - 80px);
         }
 
         .hero-content h1 {
-            font-size: 4.5rem;
+            font-size: 4rem;
             font-weight: 800;
-            line-height: 1.1;
             margin-bottom: 20px;
-            letter-spacing: -2px;
         }
 
         .hero-content h1 span {
@@ -307,10 +229,9 @@
         }
 
         .hero-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: var(--text-secondary);
             margin-bottom: 30px;
-            line-height: 1.8;
         }
 
         .hero-buttons {
@@ -329,26 +250,8 @@
             align-items: center;
             gap: 10px;
             transition: all 0.3s;
-            font-size: 1rem;
-            position: relative;
-            overflow: hidden;
             border: none;
             cursor: pointer;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
         }
 
         .btn-primary {
@@ -371,7 +274,6 @@
         .btn-secondary:hover {
             border-color: var(--accent);
             color: var(--accent);
-            transform: translateY(-3px);
         }
 
         .hero-stats {
@@ -383,20 +285,6 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s forwards;
-        }
-
-        .stat:nth-child(1) { animation-delay: 0.2s; }
-        .stat:nth-child(2) { animation-delay: 0.4s; }
-        .stat:nth-child(3) { animation-delay: 0.6s; }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .stat-icon {
@@ -410,19 +298,11 @@
             font-size: 1.3rem;
             color: var(--accent);
             border: 2px solid var(--border);
-            transition: all 0.3s;
-        }
-
-        .stat:hover .stat-icon {
-            background: var(--accent);
-            color: var(--bg-primary);
-            transform: rotate(360deg);
         }
 
         .stat-info h3 {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--text-primary);
         }
 
         .stat-info p {
@@ -430,30 +310,15 @@
             font-size: 0.9rem;
         }
 
-        .hero-image {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
         .developer-illustration {
             width: 100%;
             max-width: 500px;
-            position: relative;
-        }
-
-        .illustration-svg {
-            width: 100%;
-            height: auto;
-            filter: drop-shadow(0 20px 40px rgba(0, 220, 130, 0.2));
         }
 
         .floating {
             animation: float 6s ease-in-out infinite;
         }
 
-        /* Floating Social Icons */
         .social-floating {
             position: fixed;
             right: 40px;
@@ -475,18 +340,15 @@
             align-items: center;
             justify-content: center;
             color: var(--text-secondary);
-            font-size: 1.1rem;
             transition: all 0.3s;
         }
 
         .social-floating a:hover {
             background: var(--accent);
             color: var(--bg-primary);
-            border-color: var(--accent);
             transform: translateX(-5px);
         }
 
-        /* Section Styling */
         section {
             padding: 100px 40px;
             max-width: 1200px;
@@ -505,20 +367,17 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 10px;
-            display: inline-block;
         }
 
         .section-title {
             font-size: 3rem;
             font-weight: 800;
-            line-height: 1.2;
         }
 
-        /* Scroll Animation */
         .scroll-animate {
             opacity: 0;
             transform: translateY(50px);
-            transition: all 0.8s ease;
+            transition: all 0.8s;
         }
 
         .scroll-animate.active {
@@ -526,11 +385,9 @@
             transform: translateY(0);
         }
 
-        /* About Section */
         #about {
             background: var(--bg-secondary);
             max-width: 100%;
-            padding: 100px 40px;
         }
 
         .about-container {
@@ -545,7 +402,6 @@
         .about-content h2 {
             font-size: 2.5rem;
             margin-bottom: 25px;
-            font-weight: 700;
         }
 
         .about-content h2 span {
@@ -554,9 +410,8 @@
 
         .about-content p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            line-height: 1.8;
             margin-bottom: 30px;
+            font-size: 1.1rem;
         }
 
         .about-features {
@@ -569,22 +424,14 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            color: var(--text-primary);
             padding: 15px;
             background: var(--bg-card);
             border-radius: 12px;
             border: 1px solid var(--border);
-            transition: all 0.3s;
-        }
-
-        .feature:hover {
-            border-color: var(--accent);
-            transform: translateX(10px);
         }
 
         .feature i {
             color: var(--accent);
-            font-size: 1.2rem;
         }
 
         .about-stats {
@@ -592,18 +439,6 @@
             border-radius: 30px;
             padding: 50px;
             border: 2px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-stats::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(0, 220, 130, 0.1) 0%, transparent 70%);
         }
 
         .experience-badge {
@@ -615,7 +450,6 @@
             padding: 15px 30px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 1.3rem;
             margin-bottom: 40px;
         }
 
@@ -638,12 +472,9 @@
             align-items: center;
             justify-content: center;
             color: var(--accent);
-            font-size: 1.2rem;
-            flex-shrink: 0;
         }
 
         .info-text h4 {
-            font-size: 1.1rem;
             margin-bottom: 5px;
         }
 
@@ -652,7 +483,6 @@
             font-size: 0.95rem;
         }
 
-        /* Skills Section */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -664,14 +494,12 @@
             border: 2px solid var(--border);
             border-radius: 20px;
             padding: 35px;
-            transition: all 0.4s;
-            transform-style: preserve-3d;
+            transition: all 0.3s;
         }
 
         .skill-card:hover {
             border-color: var(--accent);
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 0 20px 40px rgba(0, 220, 130, 0.2);
+            transform: translateY(-5px);
         }
 
         .skill-card h3 {
@@ -694,22 +522,12 @@
 
         .skill-tag {
             background: var(--bg-primary);
-            color: var(--text-secondary);
             padding: 8px 18px;
             border-radius: 50px;
             font-size: 0.9rem;
             border: 1px solid var(--border);
-            transition: all 0.3s;
         }
 
-        .skill-tag:hover {
-            background: var(--accent);
-            color: var(--bg-primary);
-            border-color: var(--accent);
-            transform: scale(1.05);
-        }
-
-        /* Skills Progress Bars */
         .skills-progress {
             margin-top: 60px;
             background: var(--bg-card);
@@ -733,7 +551,6 @@
             background: var(--bg-primary);
             border-radius: 5px;
             overflow: hidden;
-            position: relative;
         }
 
         .progress-fill {
@@ -741,31 +558,12 @@
             background: linear-gradient(90deg, var(--accent), var(--purple));
             border-radius: 5px;
             width: 0;
-            transition: width 1.5s ease;
-            position: relative;
+            transition: width 1.5s;
         }
 
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Projects Section */
         #projects {
             background: var(--bg-secondary);
             max-width: 100%;
-            padding: 100px 40px;
         }
 
         .projects-grid {
@@ -779,14 +577,12 @@
             border: 2px solid var(--border);
             border-radius: 20px;
             overflow: hidden;
-            transition: all 0.4s;
-            position: relative;
+            transition: all 0.3s;
         }
 
         .project-card:hover {
             transform: translateY(-10px);
             border-color: var(--accent);
-            box-shadow: 0 20px 50px rgba(0, 220, 130, 0.2);
         }
 
         .project-image {
@@ -804,14 +600,12 @@
         }
 
         .project-content h3 {
-            font-size: 1.4rem;
             margin-bottom: 10px;
         }
 
         .project-content p {
             color: var(--text-secondary);
             margin-bottom: 20px;
-            line-height: 1.7;
         }
 
         .project-tech {
@@ -827,7 +621,6 @@
             border-radius: 20px;
             font-size: 0.85rem;
             color: var(--accent);
-            border: 1px solid var(--border);
         }
 
         .project-links {
@@ -838,21 +631,15 @@
         .project-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
         }
 
         .project-links a:hover {
             color: var(--accent);
         }
 
-        /* Experience Section */
         #experience {
             background: var(--bg-secondary);
             max-width: 100%;
-            padding: 100px 40px;
         }
 
         .experience-container {
@@ -861,9 +648,6 @@
         }
 
         .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
             position: relative;
         }
 
@@ -882,9 +666,9 @@
             border: 2px solid var(--border);
             border-radius: 20px;
             padding: 40px;
-            position: relative;
-            transition: all 0.4s;
             margin-left: 60px;
+            margin-bottom: 30px;
+            position: relative;
         }
 
         .job-card::before {
@@ -896,19 +680,11 @@
             height: 20px;
             background: var(--accent);
             border-radius: 50%;
-            border: 4px solid var(--bg-primary);
-        }
-
-        .job-card:hover {
-            border-color: var(--accent);
-            transform: translateX(15px);
-            box-shadow: 0 10px 40px rgba(0, 220, 130, 0.15);
         }
 
         .job-header {
             display: flex;
             justify-content: space-between;
-            align-items: start;
             margin-bottom: 15px;
             flex-wrap: wrap;
             gap: 15px;
@@ -916,7 +692,6 @@
 
         .job-title {
             font-size: 1.5rem;
-            font-weight: 700;
         }
 
         .job-period {
@@ -924,35 +699,22 @@
             color: var(--bg-primary);
             padding: 8px 20px;
             border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
         }
 
         .job-company {
             color: var(--accent);
-            font-weight: 600;
-            font-size: 1.1rem;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .job-location {
             color: var(--text-secondary);
-            font-size: 0.95rem;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .job-description {
             color: var(--text-secondary);
-            line-height: 1.8;
         }
 
-        /* Certifications Section */
         .cert-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -967,31 +729,6 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cert-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--accent);
-            transform: scaleY(0);
-            transition: transform 0.3s;
-        }
-
-        .cert-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .cert-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 220, 130, 0.15);
         }
 
         .cert-icon {
@@ -1003,18 +740,14 @@
             align-items: center;
             justify-content: center;
             color: var(--bg-primary);
-            font-size: 1.3rem;
-            flex-shrink: 0;
         }
 
         .cert-info h4 {
-            font-size: 1.05rem;
             margin-bottom: 5px;
         }
 
         .cert-info p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
         }
 
         .cert-section-title {
@@ -1022,21 +755,12 @@
             margin: 50px 0 30px;
             padding-bottom: 15px;
             border-bottom: 2px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
         }
 
-        .cert-section-title i {
-            color: var(--accent);
-        }
-
-        /* Contact Section */
         #contact {
             text-align: center;
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
             max-width: 100%;
-            padding: 120px 40px;
         }
 
         .contact-container {
@@ -1047,13 +771,12 @@
         #contact h2 {
             font-size: 3rem;
             margin-bottom: 20px;
-            font-weight: 800;
         }
 
         #contact p {
             color: var(--text-secondary);
-            font-size: 1.2rem;
             margin-bottom: 40px;
+            font-size: 1.2rem;
         }
 
         .contact-form {
@@ -1073,32 +796,21 @@
             display: block;
             margin-bottom: 10px;
             font-weight: 600;
-            color: var(--text-primary);
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 15px 20px;
+            padding: 15px;
             background: var(--bg-primary);
             border: 2px solid var(--border);
             border-radius: 10px;
             color: var(--text-primary);
-            font-size: 1rem;
             font-family: inherit;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(0, 220, 130, 0.2);
         }
 
         .form-group textarea {
             min-height: 150px;
-            resize: vertical;
         }
 
         .contact-buttons {
@@ -1108,42 +820,6 @@
             flex-wrap: wrap;
         }
 
-        .contact-btn {
-            padding: 18px 40px;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.3s;
-            font-size: 1.05rem;
-        }
-
-        .contact-btn-primary {
-            background: var(--accent);
-            color: var(--bg-primary);
-        }
-
-        .contact-btn-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 220, 130, 0.3);
-        }
-
-        .contact-btn-secondary {
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--border);
-        }
-
-        .contact-btn-secondary:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        /* Footer */
         footer {
             background: var(--bg-primary);
             border-top: 1px solid var(--border);
@@ -1152,15 +828,6 @@
             color: var(--text-secondary);
         }
 
-        footer p {
-            font-size: 0.95rem;
-        }
-
-        footer span {
-            color: var(--accent);
-        }
-
-        /* Back to Top */
         .back-to-top {
             position: fixed;
             bottom: 40px;
@@ -1173,12 +840,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
             text-decoration: none;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s;
-            z-index: 999;
         }
 
         .back-to-top.visible {
@@ -1186,12 +851,37 @@
             visibility: visible;
         }
 
-        .back-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 220, 130, 0.4);
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
         }
 
-        /* Responsive */
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         @media (max-width: 968px) {
             .hero {
                 grid-template-columns: 1fr;
@@ -1199,23 +889,7 @@
             }
 
             .hero-content h1 {
-                font-size: 3rem;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .hero-stats {
-                justify-content: center;
-            }
-
-            .hero-image {
-                order: -1;
-            }
-
-            .developer-illustration {
-                max-width: 350px;
+                font-size: 2.5rem;
             }
 
             .about-container {
@@ -1229,143 +903,19 @@
             .toggles-container {
                 top: auto;
                 bottom: 20px;
-                left: 20px;
                 flex-direction: row;
             }
-
-            nav {
-                padding: 0 20px;
-            }
-
-            .nav-links {
-                gap: 25px;
-            }
-
-            section {
-                padding: 80px 20px;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .job-card {
-                padding: 30px;
-                margin-left: 40px;
-            }
-
-            .timeline::before {
-                left: 20px;
-            }
-
-            .job-card::before {
-                left: -30px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-stats {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .about-features {
-                grid-template-columns: 1fr;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cert-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .developer-illustration {
-                max-width: 280px;
-            }
-
-            .cursor, .cursor-dot {
-                display: none;
-            }
-
-            .nav-links {
-                gap: 15px;
-                font-size: 0.85rem;
-            }
-
-            .nav-links .btn-primary {
-                padding: 10px 20px;
-            }
-        }
-
-        /* Loading Screen */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: opacity 0.5s;
-        }
-
-        .loader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader-content {
-            text-align: center;
-        }
-
-        .loader-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid var(--border);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .loader-text {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
     <div class="loader">
-        <div class="loader-content">
-            <div class="loader-spinner"></div>
-            <div class="loader-text">Loading Portfolio...</div>
-        </div>
+        <div class="loader-spinner"></div>
     </div>
 
-    <!-- Custom Cursor -->
     <div class="cursor"></div>
     <div class="cursor-dot"></div>
 
-    <!-- Toggle Buttons -->
     <div class="toggles-container">
         <button class="toggle-btn" id="simpleViewToggle" title="Toggle Simple View">
             <i class="fas fa-eye"></i>
@@ -1375,10 +925,8 @@
         </button>
     </div>
 
-    <!-- Particle Background -->
     <div id="particles"></div>
 
-    <!-- Navigation -->
     <header>
         <nav>
             <div class="logo">SAHIL</div>
@@ -1391,160 +939,331 @@
                 <a href="resume.pdf" download class="btn-primary" target="_blank">
                     <i class="fas fa-download"></i> Resume
                 </a>
-                <a href="#contact" class="btn-primary">
-                    <i class="fas fa-paper-plane"></i> Contact
-                </a>
+                <a href="#contact" class="btn-primary">Contact</a>
             </div>
         </nav>
     </header>
 
-    <!-- Floating Social Icons -->
     <div class="social-floating">
-        <a href="https://www.linkedin.com/in/sahil-basnet-6332a13b1/" target="_blank" title="LinkedIn">
-            <i class="fab fa-linkedin-in"></i>
-        </a>
-        <a href="https://github.com/basnetsahil-creator" target="_blank" title="GitHub">
-            <i class="fab fa-github"></i>
-        </a>
-        <a href="https://www.upwork.com/freelancers/~013e4e5fee40b93604" target="_blank" title="Upwork">
-            <i class="fab fa-upwork"></i>
-        </a>
-        <a href="mailto:sahilbasnet95@yahoo.com" title="Email">
-            <i class="fas fa-envelope"></i>
-        </a>
+        <a href="https://www.linkedin.com/in/sahil-basnet-6332a13b1/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/basnetsahil-creator" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.upwork.com/freelancers/~013e4e5fee40b93604" target="_blank"><i class="fab fa-upwork"></i></a>
+        <a href="mailto:sahilbasnet95@yahoo.com"><i class="fas fa-envelope"></i></a>
     </div>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <h1>IT Support & <span class="typing-text"></span></h1>
-            <p class="hero-subtitle">
-                Bridging technical support and software development — helping teams resolve issues, build systems, and deliver results from anywhere in the world.
-            </p>
+            <p class="hero-subtitle">Bridging technical support and software development — helping teams resolve issues, build systems, and deliver results from anywhere in the world.</p>
             <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">
-                    <i class="fas fa-rocket"></i> Get in Touch
-                </a>
-                <a href="#experience" class="btn btn-secondary">
-                    <i class="fas fa-briefcase"></i> View Experience
-                </a>
-                <a href="resume.pdf" download class="btn btn-secondary" target="_blank">
-                    <i class="fas fa-file-pdf"></i> Download Resume
-                </a>
+                <a href="#contact" class="btn btn-primary"><i class="fas fa-rocket"></i> Get in Touch</a>
+                <a href="#experience" class="btn btn-secondary"><i class="fas fa-briefcase"></i> View Experience</a>
+                <a href="resume.pdf" download class="btn btn-secondary" target="_blank"><i class="fas fa-file-pdf"></i> Download Resume</a>
             </div>
             <div class="hero-stats">
                 <div class="stat">
-                    <div class="stat-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>5+</h3>
-                        <p>Years Experience</p>
-                    </div>
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                    <div class="stat-info"><h3>5+</h3><p>Years Experience</p></div>
                 </div>
                 <div class="stat">
-                    <div class="stat-icon">
-                        <i class="fas fa-certificate"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>23+</h3>
-                        <p>Certifications</p>
-                    </div>
+                    <div class="stat-icon"><i class="fas fa-certificate"></i></div>
+                    <div class="stat-info"><h3>23+</h3><p>Certifications</p></div>
                 </div>
                 <div class="stat">
-                    <div class="stat-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>3</h3>
-                        <p>Countries Worked</p>
-                    </div>
+                    <div class="stat-icon"><i class="fas fa-globe"></i></div>
+                    <div class="stat-info"><h3>3</h3><p>Countries Worked</p></div>
                 </div>
             </div>
         </div>
-        <div class="hero-image">
-            <div class="developer-illustration floating">
-                <svg class="illustration-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="250" cy="250" r="200" fill="rgba(0, 220, 130, 0.1)" class="screen-glow"/>
-                    <rect x="100" y="380" width="300" height="20" rx="5" fill="#1a1a1a" stroke="#00DC82" stroke-width="2"/>
-                    <rect x="130" y="400" width="15" height="60" fill="#2a2a2a"/>
-                    <rect x="355" y="400" width="15" height="60" fill="#2a2a2a"/>
-                    <rect x="180" y="200" width="140" height="100" rx="5" fill="#1a1a1a" stroke="#00DC82" stroke-width="2" class="glow-effect"/>
-                    <rect x="190" y="210" width="120" height="80" rx="3" fill="#0a0a0a"/>
-                    <g fill="#00DC82" opacity="0.8">
-                        <rect x="200" y="220" width="60" height="4" rx="2"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="2s" repeatCount="indefinite"/></rect>
-                        <rect x="200" y="230" width="80" height="4" rx="2"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.5s" repeatCount="indefinite"/></rect>
-                        <rect x="200" y="240" width="70" height="4" rx="2"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="3s" repeatCount="indefinite"/></rect>
-                        <rect x="200" y="250" width="50" height="4" rx="2"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.2s" repeatCount="indefinite"/></rect>
-                        <rect x="200" y="260" width="90" height="4" rx="2"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.8s" repeatCount="indefinite"/></rect>
-                        <rect x="295" y="260" width="3" height="4" class="cursor" fill="#00DC82"/>
-                    </g>
-                    <rect x="235" y="300" width="30" height="15" fill="#2a2a2a"/>
-                    <rect x="210" y="315" width="80" height="8" rx="3" fill="#1a1a1a"/>
-                    <ellipse cx="250" cy="340" rx="50" ry="45" fill="#2a2a2a"/>
-                    <circle cx="250" cy="260" r="35" fill="#2a2a2a"/>
-                    <circle cx="240" cy="255" r="8" fill="none" stroke="#00DC82" stroke-width="2"/>
-                    <circle cx="260" cy="255" r="8" fill="none" stroke="#00DC82" stroke-width="2"/>
-                    <line x1="248" y1="255" x2="252" y2="255" stroke="#00DC82" stroke-width="2"/>
-                    <rect x="200" y="360" width="100" height="15" rx="3" fill="#1a1a1a" stroke="#00DC82" stroke-width="1.5"/>
-                    <ellipse cx="220" cy="365" rx="12" ry="8" fill="#2a2a2a"/>
-                    <ellipse cx="280" cy="365" rx="12" ry="8" fill="#2a2a2a"/>
-                    <rect x="360" y="350" width="25" height="30" rx="3" fill="#1a1a1a" stroke="#00DC82" stroke-width="1.5"/>
-                    <ellipse cx="372" cy="350" rx="12" ry="4" fill="#0a0a0a"/>
-                    <path d="M 385 355 Q 395 355 395 365 Q 395 375 385 375" fill="none" stroke="#00DC82" stroke-width="2"/>
-                    <path d="M 372 345 Q 375 340 372 335" fill="none" stroke="#00DC82" stroke-width="1.5" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="2s" repeatCount="indefinite"/></path>
-                    <text x="150" y="180" fill="#00DC82" font-family="monospace" font-size="30" opacity="0.6" class="glow-effect">{ }</text>
-                    <text x="340" y="160" fill="#00DC82" font-family="monospace" font-size="25" opacity="0.5">&lt; / &gt;</text>
-                </svg>
+        <div class="developer-illustration floating">
+            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                <rect x="100" y="380" width="300" height="20" rx="5" fill="#1a1a1a" stroke="#00DC82" stroke-width="2"/>
+                <rect x="180" y="200" width="140" height="100" rx="5" fill="#1a1a1a" stroke="#00DC82" stroke-width="2"/>
+                <rect x="190" y="210" width="120" height="80" fill="#0a0a0a"/>
+                <g fill="#00DC82">
+                    <rect x="200" y="220" width="60" height="4"/><rect x="200" y="230" width="80" height="4"/>
+                    <rect x="200" y="240" width="70" height="4"/><rect x="200" y="250" width="50" height="4"/>
+                </g>
+                <ellipse cx="250" cy="340" rx="50" ry="45" fill="#2a2a2a"/>
+                <circle cx="250" cy="260" r="35" fill="#2a2a2a"/>
+                <rect x="200" y="360" width="100" height="15" rx="3" fill="#1a1a1a" stroke="#00DC82"/>
+            </svg>
+        </div>
+    </section>
+
+    <section id="about" class="scroll-animate">
+        <div class="about-container">
+            <div class="about-content">
+                <div class="section-tag">About Me</div>
+                <h2>Who <span>I Am</span></h2>
+                <p>I'm an IT Support Specialist and Python Developer based in Kathmandu, Nepal, with a background spanning customer service, office management, and software development.</p>
+                <p>I've worked across Nepal and internationally in Abu Dhabi, gaining hands-on experience in IT troubleshooting, customer support, travel logistics, and technical operations.</p>
+                <div class="about-features">
+                    <div class="feature"><i class="fas fa-check-circle"></i><span>Remote Work Ready</span></div>
+                    <div class="feature"><i class="fas fa-check-circle"></i><span>Multilingual Support</span></div>
+                    <div class="feature"><i class="fas fa-check-circle"></i><span>Problem Solver</span></div>
+                    <div class="feature"><i class="fas fa-check-circle"></i><span>Fast Learner</span></div>
+                </div>
+            </div>
+            <div class="about-stats">
+                <div class="experience-badge"><i class="fas fa-star"></i> 5+ Years Of Experience</div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="info-text"><h4>Location</h4><p>Kathmandu, Nepal</p></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="info-text"><h4>Education</h4><p>Softwarica College (Coventry University)</p></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-briefcase"></i></div>
+                        <div class="info-text"><h4>Open To</h4><p>Remote — Customer Support, VA, Data Entry, IT</p></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-language"></i></div>
+                        <div class="info-text"><h4>Languages</h4><p>English (Professional) · Nepali (Native)</p></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Rest of the sections remain the same as previous code -->
-    <!-- About, Skills, Projects, Experience, Certifications, Contact sections -->
-    <!-- (Same as before, just adding the two new buttons) -->
+    <section id="skills" class="scroll-animate">
+        <div class="section-header">
+            <div class="section-tag">Capabilities</div>
+            <h2 class="section-title">Skills & Tools</h2>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3><i class="fas fa-headset"></i> IT Support</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Hardware</span>
+                    <span class="skill-tag">Networking</span>
+                    <span class="skill-tag">Troubleshooting</span>
+                    <span class="skill-tag">Windows</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3><i class="fas fa-code"></i> Development</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python 3</span>
+                    <span class="skill-tag">Django</span>
+                    <span class="skill-tag">Scripting</span>
+                    <span class="skill-tag">Automation</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3><i class="fas fa-database"></i> Data & DB</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">MS SQL Server</span>
+                    <span class="skill-tag">Data Entry</span>
+                    <span class="skill-tag">Excel/MOS</span>
+                    <span class="skill-tag">Odoo</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3><i class="fas fa-briefcase"></i> Business</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Customer Service</span>
+                    <span class="skill-tag">CRM</span>
+                    <span class="skill-tag">Ticketing</span>
+                    <span class="skill-tag">Virtual Assistant</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3><i class="fas fa-robot"></i> AI & GenAI</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Claude API</span>
+                    <span class="skill-tag">Model Context Protocol</span>
+                    <span class="skill-tag">Amazon Bedrock</span>
+                    <span class="skill-tag">Google Vertex AI</span>
+                </div>
+            </div>
+        </div>
+        <div class="skills-progress">
+            <div class="progress-item">
+                <div class="progress-header"><span>Python</span><span>85%</span></div>
+                <div class="progress-bar"><div class="progress-fill" data-width="85%"></div></div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header"><span>Django</span><span>75%</span></div>
+                <div class="progress-bar"><div class="progress-fill" data-width="75%"></div></div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header"><span>IT Support</span><span>90%</span></div>
+                <div class="progress-bar"><div class="progress-fill" data-width="90%"></div></div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header"><span>Customer Service</span><span>95%</span></div>
+                <div class="progress-bar"><div class="progress-fill" data-width="95%"></div></div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Footer -->
+    <section id="projects" class="scroll-animate">
+        <div class="section-header">
+            <div class="section-tag">Portfolio</div>
+            <h2 class="section-title">Featured Projects</h2>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image"><i class="fas fa-robot"></i></div>
+                <div class="project-content">
+                    <h3>AI Automation Bot</h3>
+                    <p>Automated customer support responses using Claude API and Python, reducing response time by 60%.</p>
+                    <div class="project-tech"><span>Python</span><span>Claude API</span><span>Automation</span></div>
+                    <div class="project-links">
+                        <a href="https://github.com/basnetsahil-creator" target="_blank"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image"><i class="fas fa-database"></i></div>
+                <div class="project-content">
+                    <h3>Data Management System</h3>
+                    <p>Full-stack data entry and management system built with Django and MS SQL Server.</p>
+                    <div class="project-tech"><span>Django</span><span>SQL Server</span><span>HTML/CSS</span></div>
+                    <div class="project-links">
+                        <a href="https://github.com/basnetsahil-creator" target="_blank"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image"><i class="fas fa-headset"></i></div>
+                <div class="project-content">
+                    <h3>Support Ticket System</h3>
+                    <p>Custom ticketing system for IT support teams with automated routing and priority management.</p>
+                    <div class="project-tech"><span>Python</span><span>Odoo</span><span>CRM</span></div>
+                    <div class="project-links">
+                        <a href="https://github.com/basnetsahil-creator" target="_blank"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="scroll-animate">
+        <div class="experience-container">
+            <div class="section-header">
+                <div class="section-tag">Work History</div>
+                <h2 class="section-title">Experience</h2>
+            </div>
+            <div class="timeline">
+                <div class="job-card">
+                    <div class="job-header">
+                        <h3 class="job-title">Remote Customer Support Rep & Virtual Assistant</h3>
+                        <span class="job-period">Present</span>
+                    </div>
+                    <div class="job-company"><i class="fas fa-building"></i> Remote Freelance</div>
+                    <div class="job-location"><i class="fas fa-globe"></i> Remote</div>
+                    <p class="job-description">Delivered remote customer support across chat, email, and ticketing platforms. Managed scheduling, data entry, inbox management, and administrative tasks.</p>
+                </div>
+                <div class="job-card">
+                    <div class="job-header">
+                        <h3 class="job-title">Solutions Manager</h3>
+                        <span class="job-period">2023 — Present</span>
+                    </div>
+                    <div class="job-company"><i class="fas fa-building"></i> S.N HR</div>
+                    <div class="job-location"><i class="fas fa-map-marker-alt"></i> Nepal</div>
+                    <p class="job-description">Oversaw office operations, managed HR documentation, handled scheduling, and ensured efficient administrative workflows.</p>
+                </div>
+                <div class="job-card">
+                    <div class="job-header">
+                        <h3 class="job-title">IT Support & Customer Service</h3>
+                        <span class="job-period">2020 — 2023</span>
+                    </div>
+                    <div class="job-company"><i class="fas fa-building"></i> New Innovation Pvt Ltd</div>
+                    <div class="job-location"><i class="fas fa-map-marker-alt"></i> Nepal</div>
+                    <p class="job-description">Provided IT support and customer service, troubleshooting hardware, software, and network issues. Managed support tickets.</p>
+                </div>
+                <div class="job-card">
+                    <div class="job-header">
+                        <h3 class="job-title">Travel Support Specialist</h3>
+                        <span class="job-period">2016 — 2019</span>
+                    </div>
+                    <div class="job-company"><i class="fas fa-building"></i> Himalaya World Travels LLC</div>
+                    <div class="job-location"><i class="fas fa-map-marker-alt"></i> Abu Dhabi, UAE</div>
+                    <p class="job-description">Managed travel bookings, handled customer queries, and coordinated logistics. Delivered bilingual support (English/Nepali).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="scroll-animate">
+        <div class="section-header">
+            <div class="section-tag">Credentials</div>
+            <h2 class="section-title">Certifications</h2>
+        </div>
+        <h3 class="cert-section-title"><i class="fas fa-robot"></i> AI & Claude Certifications (2025)</h3>
+        <div class="cert-grid">
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Claude with the Anthropic API</h4><p>Anthropic</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Claude 101</h4><p>Anthropic</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Claude Code in Action</h4><p>Anthropic</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Introduction to Claude Cowork</h4><p>Anthropic</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Claude with Amazon Bedrock</h4><p>Anthropic</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Claude with Google Vertex AI</h4><p>Anthropic</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Introduction to Model Context Protocol</h4><p>Anthropic / Skilljar</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Model Context Protocol: Advanced Topics</h4><p>Anthropic</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Introduction to Agent Skills</h4><p>Anthropic</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>AI Fluency for Educators</h4><p>Anthropic / UCC</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>AI Fluency: Framework & Foundations</h4><p>Anthropic / UCC</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>AI Fluency for Students</h4><p>Anthropic / UCC</p></div></div>
+        </div>
+        <h3 class="cert-section-title"><i class="fas fa-laptop-code"></i> Technical Certifications</h3>
+        <div class="cert-grid">
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Microsoft Office Specialist (MOS)</h4><p>Itronix Solutions</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Odoo Functional Certification</h4><p>Odoo</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Data Entry Operator</h4><p>Itronix Solutions</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>GenAI for Virtual Assistants</h4><p>Udemy</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>MS SQL Server</h4><p>Udemy</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Secure Python & Django</h4><p>Udemy</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Python Programming</h4><p>Itronix Solutions (2023)</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>Hardware & Networking</h4><p>INFO-EXCELLENT (2012)</p></div></div>
+            <div class="cert-card"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-info"><h4>IT Support Professional</h4><p>Itronix Solutions</p></div></div>
+        </div>
+    </section>
+
+    <section id="contact" class="scroll-animate">
+        <div class="contact-container">
+            <div class="section-tag">Get In Touch</div>
+            <h2>Let's Work Together</h2>
+            <p>Open to remote opportunities in customer support, virtual assistance, IT, and data roles.</p>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Your Email</label>
+                    <input type="email" id="email" required placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="message" required placeholder="Tell me about your project..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-paper-plane"></i> Send Message</button>
+            </form>
+            <div class="contact-buttons">
+                <a href="mailto:sahilbasnet95@yahoo.com" class="btn btn-primary"><i class="fas fa-envelope"></i> sahilbasnet95@yahoo.com</a>
+                <a href="https://www.upwork.com/freelancers/~013e4e5fee40b93604" target="_blank" class="btn btn-secondary"><i class="fab fa-upwork"></i> Upwork</a>
+                <a href="https://www.linkedin.com/in/sahil-basnet-6332a13b1/" target="_blank" class="btn btn-secondary"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://github.com/basnetsahil-creator" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </section>
+
     <footer>
-        <p>© 2025 Sahil · Kathmandu, Nepal · Built with <span>♥</span> · Deployed on GitHub Pages</p>
+        <p>© 2025 Sahil · Kathmandu, Nepal · Built with <span style="color:var(--accent)">♥</span></p>
     </footer>
 
-    <!-- Back to Top -->
-    <a href="#" class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </a>
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
 
     <script>
-        // Loading Screen
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.querySelector('.loader').classList.add('hidden');
-            }, 1000);
-        });
+        window.addEventListener('load', () => setTimeout(() => document.querySelector('.loader').classList.add('hidden'), 1000));
 
-        // Simple View Toggle
-        const simpleViewToggle = document.getElementById('simpleViewToggle');
-        const simpleViewIcon = simpleViewToggle.querySelector('i');
-
-        simpleViewToggle.addEventListener('click', () => {
-            document.body.classList.toggle('simple-view');
-            const isSimpleView = document.body.classList.contains('simple-view');
-            simpleViewToggle.classList.toggle('active', isSimpleView);
-            simpleViewIcon.className = isSimpleView ? 'fas fa-eye-slash' : 'fas fa-eye';
-            localStorage.setItem('simpleView', isSimpleView);
-        });
-
-        // Load saved simple view preference
-        if (localStorage.getItem('simpleView') === 'true') {
-            document.body.classList.add('simple-view');
-            simpleViewToggle.classList.add('active');
-            simpleViewIcon.className = 'fas fa-eye-slash';
-        }
-
-        // Custom Cursor
         const cursor = document.querySelector('.cursor');
         const cursorDot = document.querySelector('.cursor-dot');
-
         document.addEventListener('mousemove', (e) => {
             if (!document.body.classList.contains('simple-view')) {
                 cursor.style.left = e.clientX + 'px';
@@ -1554,138 +1273,68 @@
             }
         });
 
-        document.querySelectorAll('a, button, .skill-card, .project-card, .cert-card, .job-card').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                if (!document.body.classList.contains('simple-view')) {
-                    cursor.classList.add('hover');
-                }
-            });
-            el.addEventListener('mouseleave', () => {
-                if (!document.body.classList.contains('simple-view')) {
-                    cursor.classList.remove('hover');
-                }
-            });
+        document.getElementById('simpleViewToggle').addEventListener('click', function() {
+            document.body.classList.toggle('simple-view');
+            this.classList.toggle('active');
+            this.querySelector('i').className = document.body.classList.contains('simple-view') ? 'fas fa-eye-slash' : 'fas fa-eye';
         });
 
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = themeToggle.querySelector('i');
-
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            themeIcon.className = newTheme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
-            localStorage.setItem('theme', newTheme);
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            this.querySelector('i').className = theme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
         });
 
-        // Load saved theme
-        if (localStorage.getItem('theme') === 'light') {
-            document.documentElement.setAttribute('data-theme', 'light');
-            themeIcon.className = 'fas fa-sun';
-        }
-
-        // Particle Background
-        const particlesContainer = document.getElementById('particles');
+        const particles = document.getElementById('particles');
         for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            particlesContainer.appendChild(particle);
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.top = Math.random() * 100 + '%';
+            p.style.animationDelay = Math.random() * 15 + 's';
+            particles.appendChild(p);
         }
 
-        // Typing Animation
         const titles = ['Python Developer', 'IT Support Specialist', 'Virtual Assistant', 'AI Enthusiast'];
-        let titleIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typingElement = document.querySelector('.typing-text');
-
+        let ti = 0, ci = 0, del = false;
         function type() {
-            const currentTitle = titles[titleIndex];
-            
-            if (isDeleting) {
-                typingElement.textContent = currentTitle.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typingElement.textContent = currentTitle.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            let typeSpeed = isDeleting ? 50 : 100;
-
-            if (!isDeleting && charIndex === currentTitle.length) {
-                typeSpeed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                titleIndex = (titleIndex + 1) % titles.length;
-                typeSpeed = 500;
-            }
-
-            setTimeout(type, typeSpeed);
+            const t = titles[ti];
+            ci += del ? -1 : 1;
+            document.querySelector('.typing-text').textContent = t.substring(0, ci);
+            if (ci === t.length) { del = true; setTimeout(type, 2000); }
+            else if (ci === 0) { del = false; ti = (ti + 1) % titles.length; setTimeout(type, 500); }
+            else setTimeout(type, del ? 50 : 100);
         }
-
         type();
 
-        // Scroll Animations
-        const scrollElements = document.querySelectorAll('.scroll-animate');
-
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !document.body.classList.contains('simple-view')) {
-                    entry.target.classList.add('active');
-                    
-                    // Animate progress bars
-                    const progressBars = entry.target.querySelectorAll('.progress-fill');
-                    progressBars.forEach(bar => {
-                        bar.style.width = bar.getAttribute('data-width');
-                    });
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('active');
+                    e.target.querySelectorAll('.progress-fill').forEach(b => b.style.width = b.dataset.width);
                 }
             });
         }, { threshold: 0.1 });
-
-        scrollElements.forEach(el => observer.observe(el));
-
-        // Back to Top
-        const backToTop = document.getElementById('backToTop');
+        document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
 
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
+            document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 500);
         });
 
-        // Contact Form
         document.getElementById('contactForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // Create mailto link
-            const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-            window.location.href = `mailto:sahilbasnet95@yahoo.com?subject=${subject}&body=${body}`;
-            
-            // Show success message
-            alert('Thank you! Opening your email client to send the message...');
+            const msg = document.getElementById('message').value;
+            window.location.href = `mailto:sahilbasnet95@yahoo.com?subject=Contact from ${name}&body=${encodeURIComponent(msg)}`;
             e.target.reset();
         });
 
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>
